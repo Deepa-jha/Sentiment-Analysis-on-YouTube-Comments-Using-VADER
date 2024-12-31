@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Comment Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        body {
+            background-color: #fafafa;
+            font-family: Arial, sans-serif;
+        }
+
+        .nav-wrapper {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .brand-logo {
+            font-size: 1.5rem;
+        }
+
+        .container {
+            margin-top: 2rem;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper red darken-2">
+            <a href="#" class="brand-logo center">YouTube Comment Insights</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m8 offset-m2">
+                <form class="center" action="/process" method="POST">
+                    <div class="input-field">
+                        <input id="video_url" name="video_url" type="text" class="validate" required>
+                        <label for="video_url">Enter YouTube Video URL:</label>
+                    </div>
+                    <button class="btn waves-effect waves-light red darken-2" type="submit" name="action">
+                        Get Insights
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Created by: Deepa Jha</p>
+            <p>Department of Computer Science and Applications</p>
+            <p>Dr. Harisingh Gour University, Sagar MP</p>
+            <p>Year of Creation: 2023-24</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

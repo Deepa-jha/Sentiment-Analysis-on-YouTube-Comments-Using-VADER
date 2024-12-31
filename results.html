@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Comment Analysis Results</title>
+    
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
+    <!-- Internal Styles -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fafafa; /* Light gray background */
+            color: #333; /* Darkened text color */
+            margin-bottom: 60px; /* Ensure space for the footer */
+        }
+        .nav-wrapper {
+            background-color: #d32f2f; /* Red darken-2 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Enhanced shadow */
+        }
+        .brand-logo {
+            font-size: 1.8rem; /* Larger font size */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Subtle text shadow */
+        }
+        .card-panel {
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Increased shadow depth */
+        }
+        .bar-chart, .pie-chart {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .scroll-box {
+            max-height: 400px;
+            overflow-y: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: #fff;
+            padding: 10px;
+        }
+        .comment-item {
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+        }
+        .positive {
+            border-left: 5px solid #4caf50; /* Green */
+        }
+        .negative {
+            border-left: 5px solid #f44336; /* Red */
+        }
+        .neutral {
+            border-left: 5px solid #2196f3; /* Blue */
+        }
+        /* Styling for the footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper red darken-2">
+            <a href="#" class="brand-logo center">YouTube Comment Insights</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="video-details card-panel white">
+            <div class="row valign-wrapper">
+                <div class="col s12 m4">
+                    <img src="{{ video_details.thumbnail }}" alt="Video Thumbnail" class="responsive-img">
+                </div>
+                <div class="col s12 m8">
+                    <h4>{{ video_details.title }}</h4>
+                    <p><strong>Artist:</strong> {{ video_details.artist }}</p>
+                    <p><strong>Date of Upload:</strong> {{ video_details.date }}</p>
+                    <p><strong>Total Comments:</strong> {{ video_details.comment_count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h4 class="center-align">{{ sentiment }}</h4>
+
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="card-panel white">
+                        <h5 class="center-align">Bar Plot</h5>
+                        <img src="data:image/png;base64,{{ bar_plot_url }}" alt="Bar Plot" class="bar-chart">
+                    </div>
+                </div>
+                <div class="col s12 m6">
+                    <div class="card-panel white">
+                        <h5 class="center-align">Pie Chart</h5>
+                        <img src="data:image/png;base64,{{ pie_plot_url }}" alt="Pie Chart" class="pie-chart">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="card-panel white">
+                        <h5 class="center-align">Positive Comments</h5>
+                        <div class="scroll-box">
+                            {% for comment in positive_comments %}
+                                <div class="comment-item positive">
+                                    <p><strong>{{ comment.author }}:</strong> {{ comment.text }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4">
+                    <div class="card-panel white">
+                        <h5 class="center-align">Negative Comments</h5>
+                        <div class="scroll-box">
+                            {% for comment in negative_comments %}
+                                <div class="comment-item negative">
+                                    <p><strong>{{ comment.author }}:</strong> {{ comment.text }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4">
+                    <div class="card-panel white">
+                        <h5 class="center-align">Neutral Comments</h5>
+                        <div class="scroll-box">
+                            {% for comment in neutral_comments %}
+                                <div class="comment-item neutral">
+                                    <p><strong>{{ comment.author }}:</strong> {{ comment.text }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- External JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
